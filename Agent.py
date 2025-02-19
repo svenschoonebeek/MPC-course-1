@@ -3,7 +3,7 @@ from scipy.optimize import minimize
 
 class Agent:
 
-    def __init__(self, x_0, A, B, Q, R, Np, state_constraint, bounds, penalty_weight):
+    def __init__(self, x_0, A, B, Q, R, P, Np, state_constraint, bounds, penalty_weight):
         self.x_k = x_0
         self.x_pred = np.tile(x_0, Np)
         self.x_seq = [x_0]
@@ -14,14 +14,13 @@ class Agent:
         self.B = B
         self.Q = Q
         self.R = R
-        self.P =
+        self.P = P
         self.state_constraint = state_constraint
         self.bounds = bounds
         self.penalty_weight = penalty_weight
 
     def predict_state(self, u):
         return self.A @ self.x_pred + self.B @ u
-        #return self.A @ self.x_pred + self.B * u
 
     def objective_function(self, u):
         J, penalty = 0, 0

@@ -12,6 +12,7 @@ class Controller:
         self.alpha = 0.1
         self.Q = np.vstack(([self.alpha, 0], [0, self.alpha]))
         self.R = np.eye(2, 2)
+        self.P = np.vstack(([2.7, 1.8], [1.8, 4.2]))
         self.Np = 20
         self.agent = None
         self.max_iter = 5
