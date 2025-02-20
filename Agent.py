@@ -3,9 +3,8 @@ from scipy.optimize import minimize
 
 class Agent:
 
-    def __init__(self, x_0, A, B, Q, R, P, Np, state_constraint, bounds, penalty_weight, x_ref):
+    def __init__(self, x_0, A, B, Q, R, P, Np, state_constraint, bounds, penalty_weight):
         self.x_k = x_0
-        self.x_ref = x_ref
         self.x_pred = np.tile(x_0, Np)
         self.x_seq = [x_0]
         self.u_k = []

@@ -7,7 +7,6 @@ class Controller:
 
     def __init__(self):
         self.x_0 = np.array([-5, 5])
-        self.x_ref = 3
         self.A = np.vstack(([0.9, 0.1], [0, 0.95]))
         self.B = np.eye(2, 2)
         self.alpha = 5
@@ -42,7 +41,7 @@ class Controller:
 
     def run(self):
         self.agent = Agent(self.x_0, self.A, self.B, self.Q, self.R, self.P, self.Np,
-                           self.state_constraint, self.bounds, self.penalty_weight, self.x_ref)
+                           self.state_constraint, self.bounds, self.penalty_weight)
         for i in range(self.max_iter):
             print("Running at iteration " + str(i + 1))
             self.agent.minimize_objective_function()
