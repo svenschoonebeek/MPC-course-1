@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 class Controller:
 
     def __init__(self):
-        self.x_0 = np.array([2, -2])
+        self.x_0 = np.array([0.5, 0.1])
         self.A = np.vstack(([2, 1], [0, 2]))
         self.B = np.eye(2, 2)
         self.alpha = 0.1
@@ -26,6 +26,7 @@ class Controller:
         figs = fig.subfigures(1, 3)
         ax2 = figs[1].add_subplot(1, 1, 1)
         print(self.agent.u_k)
+        print(self.agent.x_seq)
         ax2.plot(range(self.max_iter), self.agent.u_k)
         ax2.set_title("Input over time")
         ax2.set_xlabel("Time")
@@ -38,7 +39,7 @@ class Controller:
         plt.show()
 
     def run(self):
-        self.agent = Agent(self.x_0, self.A, self.B, self.Q, self.R, self.Np,
+        self.agent = Agent(self.x_0, self.A, self.B, self.Q, self.R, self.P, self.Np,
                            self.state_constraint, self.bounds, self.penalty_weight)
         for i in range(self.max_iter):
             print("Running at iteration " + str(i + 1))
