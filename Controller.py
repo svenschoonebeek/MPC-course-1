@@ -12,10 +12,11 @@ class Controller:
         self.beta = 5
         self.Q = np.vstack(([self.beta, 0], [0, self.beta]))
         self.R = np.eye(2, 2)
-        self.P = np.vstack(([1.48, 0.06], [0.06, 1.56]))
-        self.Np = 20
+        self.P = np.vstack(([5.689, 0.078], [0.078, 5.778]))
+        self.K = np.vstack(([0.763, 0.086], [0.002, 0.808]))
+        self.Np = 3
         self.agent = None
-        self.max_iter = 20
+        self.max_iter = 30
         self.bounds = [(-1, 1)] * 2 * self.Np
         self.state_constraint = [-5, 5]
         self.penalty_weight = 10
