@@ -9,11 +9,11 @@ class Controller:
         self.x_0 = np.array([-5, 5])
         self.A = np.vstack(([0.9, 0.1], [0, 0.95]))
         self.B = np.eye(2, 2)
-        self.alpha = 5
-        self.Q = np.vstack(([self.alpha, 0], [0, self.alpha]))
+        self.beta = 5
+        self.Q = np.vstack(([self.beta, 0], [0, self.beta]))
         self.R = np.eye(2, 2)
         self.P = np.vstack(([1.48, 0.06], [0.06, 1.56]))
-        self.Np = 3
+        self.Np = 20
         self.agent = None
         self.max_iter = 20
         self.bounds = [(-1, 1)] * 2 * self.Np
