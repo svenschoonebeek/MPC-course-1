@@ -3,8 +3,9 @@ from scipy.optimize import minimize
 
 class Agent:
 
-    def __init__(self, x_0, A, B, Q, R, P, Np, state_constraint, bounds, penalty_weight):
+    def __init__(self, x_0, A, B, Q, R, P, Np, state_constraint, bounds, penalty_weight, x_ref):
         self.x_k = x_0
+        self.x_ref = x_ref
         self.x_pred = np.tile(x_0, Np)
         self.x_seq = [x_0]
         self.u_k = []
@@ -20,7 +21,7 @@ class Agent:
         self.penalty_weight = penalty_weight
 
     def predict_state(self, u):
-        return self.A @ self.x_pred #+ self.B @ u
+        return self.A @ self.x_pred + self.B @ u
 
     def objective_function(self, u):
         J, penalty = 0, 0
@@ -35,8 +36,7 @@ class Agent:
         return 0.5 * J + penalty + 0.5 * self.x_pred.T @ self.P @ self.x_pred
 
     def minimize_objective_function(self):
-        print (self.u_pred)
-        result = minimize(self.objective_function, np.array(self.u_pred).flatten(), bounds=None, method='SLSQP', options={'maxiter': 100, 'ftol': 1e-8, 'disp': True})
+        result = minimize(self.objective_function, np.array(self.u_pred).flatten(), bounds=self.bounds, method='SLSQP', options={'maxiter': 100, 'ftol': 1e-8, 'disp': True})
         self.u_pred = result.x
         self.u_k.append(self.u_pred[:2])
         self.x_k = self.predict_state(self.u_pred[:2])

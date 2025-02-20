@@ -6,19 +6,21 @@ import matplotlib.pyplot as plt
 class Controller:
 
     def __init__(self):
-        self.x_0 = np.array([0.5, 0.1])
-        self.A = np.vstack(([2, 1], [0, 2]))
+        self.x_0 = np.array([-5, 5])
+        self.x_ref = 3
+        self.A = np.vstack(([0.9, 0.1], [0, 0.95]))
         self.B = np.eye(2, 2)
-        self.alpha = 0.1
+        self.alpha = 5
         self.Q = np.vstack(([self.alpha, 0], [0, self.alpha]))
+        #self.R = np.vstack(([5, 0], [0, 5]))
         self.R = np.eye(2, 2)
-        self.P = np.vstack(([2.7, 1.8], [1.8, 4.2]))
-        self.Np = 20
+        self.P = np.vstack(([1.48, 0.06], [0.06, 1.56]))
+        self.Np = 30
         self.agent = None
-        self.max_iter = 5
+        self.max_iter = 20
         self.bounds = [(-1, 1)] * 2 * self.Np
-        #self.state_constraint = [-5, 5]
-        self.state_constraint = None
+        self.state_constraint = [-5, 5]
+        #self.state_constraint = None
         self.penalty_weight = 10
 
     def plot(self):
@@ -40,7 +42,7 @@ class Controller:
 
     def run(self):
         self.agent = Agent(self.x_0, self.A, self.B, self.Q, self.R, self.P, self.Np,
-                           self.state_constraint, self.bounds, self.penalty_weight)
+                           self.state_constraint, self.bounds, self.penalty_weight, self.x_ref)
         for i in range(self.max_iter):
             print("Running at iteration " + str(i + 1))
             self.agent.minimize_objective_function()
